@@ -1,0 +1,54 @@
+{
+  
+  "version": 1,
+  "schema_version": 2,
+
+  "id": "id.id",
+  
+  "title": "title",
+  "title_localized": "localized title",
+
+  "artist": "artist",
+  "artist_localized": "localized artist",
+  "artist_source": "https://youtu.be/dQw4w9WgXcQ",
+
+  "illustrator": "illustrator",
+  "illustrator_source": "https://youtu.be/dQw4w9WgXcQ",
+
+  "charter": "test",
+  
+  "music": {
+    "path": "music.mp3"
+  },
+  "music_preview": {
+    "path": "preview.mp3"
+  },
+  "background": {
+    "path": "background.jpg"
+  },
+  "charts": [
+    {
+      "type": "easy",
+      "difficulty": 3,
+      "path": "chart.easy.txt"
+    },
+    {
+      "type": "hard",
+      "difficulty": 9,
+      "path": "chart.hard.txt"
+    },
+    {
+      "type": "extreme",
+      "name": "EX",
+      "difficulty": 15,
+      "path": "chart.ex.txt",
+      "music_override": {
+      	"path": null
+      },
+      "storyboard": {
+      	"path": null
+      }
+    }
+  ]
+  
+}
