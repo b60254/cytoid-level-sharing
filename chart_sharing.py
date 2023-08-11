@@ -17,8 +17,10 @@ for enc in encodings:
 def is_valid_url(str):
     parsed = urlparse(str)
     return (parsed.scheme and parsed.netloc)
+def is_valid_key(str):
+    return (str in level and not (str is None) and len(str.strip()) > 0)
 def print_title():
-    if ('title_localized' in level and not (level['title_localized'] is None)):
+    if (is_valid_key(level['title_localized'])):
         print(f'Title: {title}（{level["title_localized"]}）')
     else:
         print(f'Title: {title}')
@@ -38,7 +40,7 @@ def print_difficulties():
 
 def print_artist():
     global artist
-    if ('artist_localized' in level and not (level['artist_localized'] is None)):
+    if (is_valid_key('artist')):
         artist += '（' + level['artist_localized'] + '）'
     if (is_valid_url(level['artist_source'])):
         print(f'Artist: [{artist}](<{artist_source}>)')
