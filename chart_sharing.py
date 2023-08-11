@@ -1,54 +1,64 @@
 # pasta's script to automate getting level data for chart sharing
 import json
+import sys
 from urllib.parse import urlparse
+
 encodings = ['utf-8', 'utf-16']
 for enc in encodings:
     try:
         with open('level.json', 'r', encoding = enc) as f:
             level = json.load(f)
     except UnicodeDecodeError:
-        print(f'Couldn\'t open level.json with {enc}')
         if encodings.index(enc) == (len(encodings) - 1):
-            print('Unsupported file encoding. Please re-encode your level.json with UTF-8 or UTF-16.')
-            exit()
+            print('Unsupported file encoding.')
+            print('Please re-encode your level.json with UTF-8 or UTF-16.')
+            sys.exit()
     else:
         break
 
-def is_valid_url(str):
-    parsed = urlparse(str)
+def is_valid_url(string):
+    """Checks whether the string is a valid URL."""
+    parsed = urlparse(string)
     return (parsed.scheme and parsed.netloc)
-def is_valid_key(str):
-    return (str in level and not (str is None) and len(str.strip()) > 0)
+def is_valid_key(string):
+    """Checks whether the given string is a valid key."""
+    return (string in level and not (string is None) and len(string.strip()) > 0)
 def print_title():
-    if (is_valid_key(level['title_localized'])):
+    """Print the title and localized title if it exists."""
+    if is_valid_key(level['title_localized']):
         print(f'Title: {title}（{level["title_localized"]}）')
     else:
         print(f'Title: {title}')
 
 def print_difficulties():
+    """Print the list of chart difficulties."""
     difficulty_list = []
 
     for chart in level['charts']:
         difficulty_list.append(chart['difficulty'])
-    
+
     difficulty_list.sort()
-    if (len(difficulty_list) == 1):
+    if len(difficulty_list) == 1:
         print('Difficulty: ', end = '')
     else:
         print('Difficulties: ', end = '')
     print(*difficulty_list, sep = ', ')
 
 def print_artist():
+    """Print the artist and localized artist if it exists.
+    Also links to the source if provided."""
     global artist
-    if (is_valid_key('artist')):
+    if is_valid_key('artist'):
         artist += '（' + level['artist_localized'] + '）'
-    if (is_valid_url(level['artist_source'])):
+    if is_valid_url(level['artist_source']):
         print(f'Artist: [{artist}](<{artist_source}>)')
     else:
         print(f'Artist: {level["artist"]}')
 
 def print_illustrator():
-    if (is_valid_url(level['illustrator_source'])):
+    """Print the illustrator name.
+    Also links to the source if provided."""
+    if is_valid_url(level['illustrator_source']):
         print(f'Illustrator: [{illustrator}](<{illustrator_source}>)')
     else:
         print(f'Illustrator: {level["illustrator"]}')
