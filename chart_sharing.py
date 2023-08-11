@@ -25,7 +25,7 @@ def is_valid_key(string):
     return (string in level and not (string is None) and len(string.strip()) > 0)
 def print_title():
     """Print the title and localized title if it exists."""
-    if is_valid_key(level['title_localized']):
+    if is_valid_key('title_localized'):
         print(f'Title: {title}（{level["title_localized"]}）')
     else:
         print(f'Title: {title}')
@@ -47,13 +47,13 @@ def print_difficulties():
 def print_artist():
     """Print the artist and localized artist if it exists.
     Also links to the source if provided."""
-    global artist
-    if is_valid_key('artist'):
+    artist = level['artist']
+    if is_valid_key('artist_localized'):
         artist += '（' + level['artist_localized'] + '）'
     if is_valid_url(level['artist_source']):
         print(f'Artist: [{artist}](<{artist_source}>)')
     else:
-        print(f'Artist: {level["artist"]}')
+        print(f'Artist: {artist}')
 
 def print_illustrator():
     """Print the illustrator name.
