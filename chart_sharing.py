@@ -1,4 +1,4 @@
-# pasta's script to automate getting level data for chart sharing
+"""pasta's script to automate getting level data for chart sharing"""
 import json
 import sys
 from urllib.parse import urlparse
@@ -47,13 +47,13 @@ def print_difficulties():
 def print_artist():
     """Print the artist and localized artist if it exists.
     Also links to the source if provided."""
-    artist = level['artist']
+    artist_string = level['artist']
     if is_valid_key('artist_localized'):
-        artist += '（' + level['artist_localized'] + '）'
+        artist_string += '（' + level['artist_localized'] + '）'
     if is_valid_key('artist_source') and is_valid_url(level['artist_source']):
-        print(f'Artist: [{artist}](<{level["artist_source"]}>)')
+        print(f'Artist: [{artist_string}](<{level["artist_source"]}>)')
     else:
-        print(f'Artist: {artist}')
+        print(f'Artist: {artist_string}')
 
 def print_illustrator():
     """Print the illustrator name.
