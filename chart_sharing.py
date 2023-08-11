@@ -1,9 +1,18 @@
 # pasta's script to automate getting level data for chart sharing
 import json
 from urllib.parse import urlparse
-
-with open('level.json', 'r', encoding = 'utf-8') as f:
-    level = json.load(f)
+encodings = ['utf-8', 'utf-16']
+for enc in encodings:
+    try:
+        with open('level.json', 'r', encoding = enc) as f:
+            level = json.load(f)
+    except UnicodeDecodeError:
+        print(f'Couldn\'t open level.json with {enc}')
+        if encodings.index(enc) == (len(encodings) - 1):
+            print('Unsupported file encoding. Please re-encode your level.json with UTF-8 or UTF-16.')
+            exit()
+    else:
+        break
 
 def is_valid_url(str):
     parsed = urlparse(str)
