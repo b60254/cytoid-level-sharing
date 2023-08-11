@@ -50,25 +50,23 @@ def print_artist():
     artist = level['artist']
     if is_valid_key('artist_localized'):
         artist += '（' + level['artist_localized'] + '）'
-    if is_valid_url(level['artist_source']):
-        print(f'Artist: [{artist}](<{artist_source}>)')
+    if is_valid_key('artist_source') and is_valid_url(level['artist_source']):
+        print(f'Artist: [{artist}](<{level["artist_source"]}>)')
     else:
         print(f'Artist: {artist}')
 
 def print_illustrator():
     """Print the illustrator name.
     Also links to the source if provided."""
-    if is_valid_url(level['illustrator_source']):
-        print(f'Illustrator: [{illustrator}](<{illustrator_source}>)')
+    if is_valid_key('illustrator_source') and is_valid_url(level['illustrator_source']):
+        print(f'Illustrator: [{illustrator}](<{level["illustrator_source"]}>)')
     else:
         print(f'Illustrator: {level["illustrator"]}')
 
 charter = level['charter']
 artist = level['artist']
 title = level['title']
-artist_source = level['artist_source']
 illustrator = level['illustrator']
-illustrator_source = level['illustrator_source']
 
 
 print('Post title:')
